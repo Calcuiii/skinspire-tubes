@@ -136,7 +136,7 @@
                     <div class="price">Rp {{ number_format($product->price, 0, ',', '.') }}</div>
                     <form action="{{ route('shopping.buy') }}" method="POST">
                         @csrf
-                        <input type="hidden" name="product_id" value="{{ $product->id }}">
+                        <input type="hidden" name="id" value="{{ $product->id }}">
                         <input type="number" name="quantity" min="1" value="1" required
                             class="form-control" style="width: 60px; text-align: center;">
                         <button type="submit" class="buy-button">Buy Now</button>

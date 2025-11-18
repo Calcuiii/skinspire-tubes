@@ -9,7 +9,7 @@ class Order extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['product_id', 'quantity', 'total_price']; // Menambahkan product_id sebagai kolom yang bisa diisi
+    protected $fillable = ['id', 'quantity', 'total_price']; // Menambahkan product_id sebagai kolom yang bisa diisi
 
     public function product()
     {

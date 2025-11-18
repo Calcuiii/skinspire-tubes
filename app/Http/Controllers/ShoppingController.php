@@ -7,6 +7,7 @@ use Dompdf\Dompdf;
 use App\Models\Product;
 use App\Models\Order;
 use Illuminate\Http\Request;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 
 class ShoppingController extends Controller
@@ -27,12 +28,12 @@ class ShoppingController extends Controller
     {
         // Validasi input dari pengguna
         $request->validate([
-            'product_id' => 'required|exists:products,id',  // Pastikan produk ada
+            'id' => 'required|exists:products,id',  // Pastikan produk ada
             'quantity' => 'required|integer|min:1',         // Pastikan quantity adalah integer dan minimal 1
         ]);
 
         // Ambil produk berdasarkan ID yang diberikan
-        $product = Product::find($request->product_id);
+        $product = Product::find($request->id);
 
         // Cek jika stok produk mencukupi
         if ($product->stock < $request->quantity) {
@@ -41,7 +42,7 @@ class ShoppingController extends Controller
 
         // Simpan data pemesanan ke dalam tabel Order
         $order = Order::create([
-            'product_id' => $product->id,
+            'id' => $product->id,
             'quantity' => $request->quantity,
             'total_price' => $product->price * $request->quantity,
         ]);
@@ -61,28 +62,13 @@ class ShoppingController extends Controller
         $order = Order::findOrFail($id);
         $product = $order->product; // Ambil data produk yang dipesan
 
-        // Membuat instance Dompdf
-        $dompdf = new Dompdf();
+        // Data yang akan dikirim ke view
+        $data = compact('order', 'product');
 
-        // Mengatur opsi Dompdf jika diperlukan (misalnya ukuran kertas atau orientasi)
-        $options = new \Dompdf\Options();
-        $options->set('isHtml5ParserEnabled', true);
-        $options->set('isPhpEnabled', true);
-        $dompdf->setOptions($options);
-
-        // Memuat view untuk struk dan mengonversinya ke HTML
-        $html = view('shopping.receipt', compact('order', 'product'))->render();
-
-        // Memuat HTML ke dalam Dompdf
-        $dompdf->loadHtml($html);
-
-        // (Opsional) Menentukan ukuran dan orientasi kertas
-        $dompdf->setPaper('A4', 'portrait');
-
-        // Render PDF dari HTML
-        $dompdf->render();
+        // Membuat PDF dari view dan mengunduhnya
+        $pdf = Pdf::loadView('shopping.receipt', $data);
 
         // Menyediakan file PDF untuk diunduh
-        return $dompdf->stream('receipt.pdf');
+        return $pdf->download('receipt.pdf');
     }
 }
