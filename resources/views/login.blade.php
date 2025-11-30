@@ -161,7 +161,7 @@
                             timer: 2000
                         }).then(() => {
                             // Redirect sesuai role
-                            window.location.href = result.redirect;
+                            window.location.href = result.redirect_url;
                         });
                     } else {
                         // Menampilkan SweetAlert jika login gagal
