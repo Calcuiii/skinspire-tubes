@@ -13,6 +13,8 @@ return new class extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
+            $table->integer('quantity'); // Jumlah produk yang dibeli
+            $table->decimal('total_price', 10, 2); // Harga total yang dibayar
             $table->timestamps();
         });
     }
