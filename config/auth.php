@@ -38,10 +38,6 @@ return [
     'guards' => [
         'web' => [
             'driver' => 'session',
-            'provider' => 'users',
-        ],
-        'admin' => [
-            'driver' => 'session',
             'provider' => 'anggota',
         ],
     ],
@@ -66,9 +62,9 @@ return [
     */
 
     'providers' => [
-        'users' => [
+        'anggota' => [
             'driver' => 'eloquent',
-            'model' => env('AUTH_MODEL', App\Models\Anggota::class),
+            'model' => App\Models\Anggota::class,
         ],
 
         // 'users' => [
@@ -98,7 +94,7 @@ return [
 
     'passwords' => [
         'users' => [
-            'provider' => 'users',
+            'provider' => 'anggota',
             'table' => env('AUTH_PASSWORD_RESET_TOKEN_TABLE', 'password_reset_tokens'),
             'expire' => 60,
             'throttle' => 60,

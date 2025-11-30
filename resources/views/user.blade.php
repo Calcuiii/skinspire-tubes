@@ -38,7 +38,7 @@
 <body>
     <nav class="navbar navbar-expand-md navbar-dark sticky-top">
         <div class="container">
-            <a href="{{ route('user') }}" class="navbar-brand mb-0 h1">
+            <a href="{{ route('user.view') }}" class="navbar-brand mb-0 h1">
                 <img src="{{ Vite::asset('resources/images/llogo.png') }}" alt="Gambar" width="55" height="70">
             </a>
             <button type="button" class="navbar-toggler" data-bs-toggle="collapse"
@@ -48,7 +48,7 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav flex-row flex-wrap">
                     <li class="nav-item col-2 col-md-auto">
-                        <a href="{{ route('shopping') }}" class="nav-link">Shopping</a>
+                        <a href="{{ route('shopping.index') }}" class="nav-link">Shopping</a>
                     </li>
                 </ul>
                 <div class="d-flex ms-auto align-items-center">
@@ -65,7 +65,7 @@
         <div class="container">
             <h1>Welcome to Skinspire</h1>
             <p class="lead">Your one-stop solution for premium skincare products</p>
-            <a href="{{ route('shopping') }}" class="btn btn-primary">Shop Now</a>
+            <a href="{{ route('shopping.index') }}" class="btn btn-primary">Shop Now</a>
         </div>
     </header>
 
